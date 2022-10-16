@@ -1,0 +1,1188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Custom schedule 1`] = `
+Object {
+  "Mappings": Object {
+    "ServiceprincipalMap": Object {
+      "af-south-1": Object {
+        "states": "states.af-south-1.amazonaws.com",
+      },
+      "ap-east-1": Object {
+        "states": "states.ap-east-1.amazonaws.com",
+      },
+      "ap-northeast-1": Object {
+        "states": "states.ap-northeast-1.amazonaws.com",
+      },
+      "ap-northeast-2": Object {
+        "states": "states.ap-northeast-2.amazonaws.com",
+      },
+      "ap-northeast-3": Object {
+        "states": "states.ap-northeast-3.amazonaws.com",
+      },
+      "ap-south-1": Object {
+        "states": "states.ap-south-1.amazonaws.com",
+      },
+      "ap-southeast-1": Object {
+        "states": "states.ap-southeast-1.amazonaws.com",
+      },
+      "ap-southeast-2": Object {
+        "states": "states.ap-southeast-2.amazonaws.com",
+      },
+      "ap-southeast-3": Object {
+        "states": "states.ap-southeast-3.amazonaws.com",
+      },
+      "ca-central-1": Object {
+        "states": "states.ca-central-1.amazonaws.com",
+      },
+      "cn-north-1": Object {
+        "states": "states.cn-north-1.amazonaws.com",
+      },
+      "cn-northwest-1": Object {
+        "states": "states.cn-northwest-1.amazonaws.com",
+      },
+      "eu-central-1": Object {
+        "states": "states.eu-central-1.amazonaws.com",
+      },
+      "eu-north-1": Object {
+        "states": "states.eu-north-1.amazonaws.com",
+      },
+      "eu-south-1": Object {
+        "states": "states.eu-south-1.amazonaws.com",
+      },
+      "eu-south-2": Object {
+        "states": "states.eu-south-2.amazonaws.com",
+      },
+      "eu-west-1": Object {
+        "states": "states.eu-west-1.amazonaws.com",
+      },
+      "eu-west-2": Object {
+        "states": "states.eu-west-2.amazonaws.com",
+      },
+      "eu-west-3": Object {
+        "states": "states.eu-west-3.amazonaws.com",
+      },
+      "me-south-1": Object {
+        "states": "states.me-south-1.amazonaws.com",
+      },
+      "sa-east-1": Object {
+        "states": "states.sa-east-1.amazonaws.com",
+      },
+      "us-east-1": Object {
+        "states": "states.us-east-1.amazonaws.com",
+      },
+      "us-east-2": Object {
+        "states": "states.us-east-2.amazonaws.com",
+      },
+      "us-gov-east-1": Object {
+        "states": "states.us-gov-east-1.amazonaws.com",
+      },
+      "us-gov-west-1": Object {
+        "states": "states.us-gov-west-1.amazonaws.com",
+      },
+      "us-iso-east-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-iso-west-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-isob-east-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-west-1": Object {
+        "states": "states.us-west-1.amazonaws.com",
+      },
+      "us-west-2": Object {
+        "states": "states.us-west-2.amazonaws.com",
+      },
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "LogsComptrollerIteratorEA634D49": Object {
+      "DependsOn": Array [
+        "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+        "LogsComptrollerIteratorRole3F6E7D1B",
+      ],
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"GetLogGroups\\",\\"States\\":{\\"GetLogGroups\\":{\\"Next\\":\\"SetLGsSeen\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.LG\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\\",\\"Parameters\\":{}},\\"SetLGsSeen\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted\\":0,\\"LGsRetained\\":0,\\"LGsSeen.$\\":\\"States.ArrayLength($.LG.LogGroups)\\"},\\"Next\\":\\"ExecuteRunner\\"},\\"ExecuteRunner\\":{\\"Next\\":\\"HasNextToken?\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.Stats\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::states:startExecution.waitForTaskToken\\",\\"Parameters\\":{\\"Input\\":{\\"LogGroups.$\\":\\"$.LG.LogGroups\\",\\"Stats.$\\":\\"$.Stats\\",\\"Token.$\\":\\"$$.Task.Token\\"},\\"StateMachineArn\\":\\"",
+              Object {
+                "Ref": "LogsComptrollerRunner2AB55B01",
+              },
+              "\\"}},\\"AppendTotal\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted.$\\":\\"$.Stats.LGsDeleted\\",\\"LGsRetained.$\\":\\"$.Stats.LGsRetained\\",\\"LGsSeen.$\\":\\"States.MathAdd($.Stats.LGsSeen, States.ArrayLength($.LG.LogGroups))\\"},\\"Next\\":\\"ExecuteRunner\\"},\\"GetNextLogGroups\\":{\\"Next\\":\\"AppendTotal\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.LG\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\\",\\"Parameters\\":{\\"NextToken.$\\":\\"$.LG.NextToken\\"}},\\"HasNextToken?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.LG.NextToken\\",\\"IsPresent\\":true,\\"Next\\":\\"GetNextLogGroups\\"}],\\"Default\\":\\"Work Complete!\\"},\\"Work Complete!\\":{\\"Type\\":\\"Succeed\\",\\"OutputPath\\":\\"$.Stats\\"}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "LogsComptrollerIteratorRole3F6E7D1B",
+            "Arn",
+          ],
+        },
+        "StateMachineName": "logs-comptroller-iterator",
+        "TracingConfiguration": Object {
+          "Enabled": true,
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "LogsComptrollerIteratorEventsRoleDC130B80": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogsComptrollerIteratorEventsRoleDefaultPolicyA56FB7FE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "LogsComptrollerIteratorEA634D49",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerIteratorEventsRoleDefaultPolicyA56FB7FE",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerIteratorEventsRoleDC130B80",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerIteratorRole3F6E7D1B": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::FindInMap": Array [
+                    "ServiceprincipalMap",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    "states",
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:DescribeLogGroups",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "LogsComptrollerRunner2AB55B01",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerIteratorRole3F6E7D1B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerRunner2AB55B01": Object {
+      "DependsOn": Array [
+        "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+        "LogsComptrollerRunnerRoleEB6A3DA6",
+      ],
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"Map\\",\\"States\\":{\\"Map\\":{\\"Type\\":\\"Map\\",\\"ResultPath\\":\\"$.MapResult\\",\\"Next\\":\\"InitStatsLoop\\",\\"InputPath\\":\\"$.LogGroups\\",\\"Iterator\\":{\\"StartAt\\":\\"GetLGParts\\",\\"States\\":{\\"GetLGParts\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Function\\",\\"Parameters\\":{\\"LGParts.$\\":\\"States.StringSplit($.LogGroupName, '/')\\"},\\"Next\\":\\"GetArrayLen\\"},\\"GetArrayLen\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Array\\",\\"Parameters\\":{\\"Len.$\\":\\"States.ArrayLength($.Function.LGParts)\\"},\\"Next\\":\\"TwoOrMore?\\"},\\"TwoOrMore?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Array.Len\\",\\"NumericGreaterThanEquals\\":2,\\"Next\\":\\"GetLogType\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetLogType\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Log\\",\\"Parameters\\":{\\"LogType.$\\":\\"States.ArrayGetItem($.Function.LGParts, 1)\\"},\\"Next\\":\\"IsLambdaLog?\\"},\\"IsLambdaLog?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Log.LogType\\",\\"StringEquals\\":\\"lambda\\",\\"Next\\":\\"GetFnName\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetFnName\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Function\\",\\"Parameters\\":{\\"FunctionName.$\\":\\"States.ArrayGetItem($.Function.LGParts, 2)\\"},\\"Next\\":\\"FunctionPresent?\\"},\\"FunctionPresent?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Function.FunctionName\\",\\"IsNull\\":false,\\"Next\\":\\"GetFunction\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetFunction\\":{\\"Next\\":\\"HasRetention?\\",\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"ResultPath\\":null,\\"Next\\":\\"DeleteLG\\"}],\\"Type\\":\\"Task\\",\\"ResultPath\\":null,\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:lambda:getFunction\\",\\"Parameters\\":{\\"FunctionName.$\\":\\"$.Function.FunctionName\\"}},\\"HasRetention?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.RetentionInDays\\",\\"IsPresent\\":false,\\"Next\\":\\"AddRetention\\"}],\\"Default\\":\\"lgtm\\"},\\"lgtm\\":{\\"Type\\":\\"Pass\\",\\"Result\\":{\\"IsDeleted\\":0,\\"IsRetained\\":0},\\"End\\":true},\\"AddRetention\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"MaxAttempts\\":10}],\\"Type\\":\\"Task\\",\\"ResultSelector\\":{\\"IsDeleted\\":0,\\"IsRetained\\":1},\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:putRetentionPolicy\\",\\"Parameters\\":{\\"LogGroupName.$\\":\\"$.LogGroupName\\",\\"RetentionInDays\\":7}},\\"DeleteLG\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"MaxAttempts\\":10}],\\"Type\\":\\"Task\\",\\"ResultSelector\\":{\\"IsDeleted\\":1,\\"IsRetained\\":0},\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:deleteLogGroup\\",\\"Parameters\\":{\\"LogGroupName.$\\":\\"$.LogGroupName\\"}}}},\\"MaxConcurrency\\":10},\\"InitStatsLoop\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Iterator\\",\\"Parameters\\":{\\"Index\\":0,\\"ResultLen.$\\":\\"States.ArrayLength($.MapResult)\\"},\\"Next\\":\\"HasNextMapResult?\\"},\\"HasNextMapResult?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Iterator.Index\\",\\"NumericLessThanPath\\":\\"$.Iterator.ResultLen\\",\\"Next\\":\\"GetNextResult\\"}],\\"Default\\":\\"SendSuccess\\"},\\"IncrementCounter\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Iterator\\",\\"Parameters\\":{\\"Index.$\\":\\"States.MathAdd($.Iterator.Index, 1)\\",\\"ResultLen.$\\":\\"$.Iterator.ResultLen\\"},\\"Next\\":\\"HasNextMapResult?\\"},\\"IncrementStats\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted.$\\":\\"States.MathAdd($.Stats.LGsDeleted, $.R.Result.IsDeleted)\\",\\"LGsRetained.$\\":\\"States.MathAdd($.Stats.LGsRetained, $.R.Result.IsRetained)\\",\\"LGsSeen.$\\":\\"$.Stats.LGsSeen\\"},\\"Next\\":\\"IncrementCounter\\"},\\"GetNextResult\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.R\\",\\"Parameters\\":{\\"Result.$\\":\\"States.ArrayGetItem($.MapResult, $.Iterator.Index)\\"},\\"Next\\":\\"IncrementStats\\"},\\"SendSuccess\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:sfn:sendTaskSuccess\\",\\"Parameters\\":{\\"Output.$\\":\\"$.Stats\\",\\"TaskToken.$\\":\\"$.Token\\"}}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "LogsComptrollerRunnerRoleEB6A3DA6",
+            "Arn",
+          ],
+        },
+        "StateMachineName": "logs-comptroller-runner",
+        "TracingConfiguration": Object {
+          "Enabled": true,
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "LogsComptrollerRunnerRoleDefaultPolicyE31C0944": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "states:SendTaskSuccess",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "lambda:getFunction",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:PutRetentionPolicy",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:DeleteLogGroup",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerRunnerRoleEB6A3DA6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerRunnerRoleEB6A3DA6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::FindInMap": Array [
+                    "ServiceprincipalMap",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    "states",
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MyTestConstructLogsComptrollerSchedulerA3F37B64": Object {
+      "Properties": Object {
+        "ScheduleExpression": "cron(0 4 0 * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Ref": "LogsComptrollerIteratorEA634D49",
+            },
+            "Id": "Target0",
+            "RoleArn": Object {
+              "Fn::GetAtt": Array [
+                "LogsComptrollerIteratorEventsRoleDC130B80",
+                "Arn",
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Scheduler enabled 1`] = `
+Object {
+  "Mappings": Object {
+    "ServiceprincipalMap": Object {
+      "af-south-1": Object {
+        "states": "states.af-south-1.amazonaws.com",
+      },
+      "ap-east-1": Object {
+        "states": "states.ap-east-1.amazonaws.com",
+      },
+      "ap-northeast-1": Object {
+        "states": "states.ap-northeast-1.amazonaws.com",
+      },
+      "ap-northeast-2": Object {
+        "states": "states.ap-northeast-2.amazonaws.com",
+      },
+      "ap-northeast-3": Object {
+        "states": "states.ap-northeast-3.amazonaws.com",
+      },
+      "ap-south-1": Object {
+        "states": "states.ap-south-1.amazonaws.com",
+      },
+      "ap-southeast-1": Object {
+        "states": "states.ap-southeast-1.amazonaws.com",
+      },
+      "ap-southeast-2": Object {
+        "states": "states.ap-southeast-2.amazonaws.com",
+      },
+      "ap-southeast-3": Object {
+        "states": "states.ap-southeast-3.amazonaws.com",
+      },
+      "ca-central-1": Object {
+        "states": "states.ca-central-1.amazonaws.com",
+      },
+      "cn-north-1": Object {
+        "states": "states.cn-north-1.amazonaws.com",
+      },
+      "cn-northwest-1": Object {
+        "states": "states.cn-northwest-1.amazonaws.com",
+      },
+      "eu-central-1": Object {
+        "states": "states.eu-central-1.amazonaws.com",
+      },
+      "eu-north-1": Object {
+        "states": "states.eu-north-1.amazonaws.com",
+      },
+      "eu-south-1": Object {
+        "states": "states.eu-south-1.amazonaws.com",
+      },
+      "eu-south-2": Object {
+        "states": "states.eu-south-2.amazonaws.com",
+      },
+      "eu-west-1": Object {
+        "states": "states.eu-west-1.amazonaws.com",
+      },
+      "eu-west-2": Object {
+        "states": "states.eu-west-2.amazonaws.com",
+      },
+      "eu-west-3": Object {
+        "states": "states.eu-west-3.amazonaws.com",
+      },
+      "me-south-1": Object {
+        "states": "states.me-south-1.amazonaws.com",
+      },
+      "sa-east-1": Object {
+        "states": "states.sa-east-1.amazonaws.com",
+      },
+      "us-east-1": Object {
+        "states": "states.us-east-1.amazonaws.com",
+      },
+      "us-east-2": Object {
+        "states": "states.us-east-2.amazonaws.com",
+      },
+      "us-gov-east-1": Object {
+        "states": "states.us-gov-east-1.amazonaws.com",
+      },
+      "us-gov-west-1": Object {
+        "states": "states.us-gov-west-1.amazonaws.com",
+      },
+      "us-iso-east-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-iso-west-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-isob-east-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-west-1": Object {
+        "states": "states.us-west-1.amazonaws.com",
+      },
+      "us-west-2": Object {
+        "states": "states.us-west-2.amazonaws.com",
+      },
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "LogsComptrollerIteratorEA634D49": Object {
+      "DependsOn": Array [
+        "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+        "LogsComptrollerIteratorRole3F6E7D1B",
+      ],
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"GetLogGroups\\",\\"States\\":{\\"GetLogGroups\\":{\\"Next\\":\\"SetLGsSeen\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.LG\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\\",\\"Parameters\\":{}},\\"SetLGsSeen\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted\\":0,\\"LGsRetained\\":0,\\"LGsSeen.$\\":\\"States.ArrayLength($.LG.LogGroups)\\"},\\"Next\\":\\"ExecuteRunner\\"},\\"ExecuteRunner\\":{\\"Next\\":\\"HasNextToken?\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.Stats\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::states:startExecution.waitForTaskToken\\",\\"Parameters\\":{\\"Input\\":{\\"LogGroups.$\\":\\"$.LG.LogGroups\\",\\"Stats.$\\":\\"$.Stats\\",\\"Token.$\\":\\"$$.Task.Token\\"},\\"StateMachineArn\\":\\"",
+              Object {
+                "Ref": "LogsComptrollerRunner2AB55B01",
+              },
+              "\\"}},\\"AppendTotal\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted.$\\":\\"$.Stats.LGsDeleted\\",\\"LGsRetained.$\\":\\"$.Stats.LGsRetained\\",\\"LGsSeen.$\\":\\"States.MathAdd($.Stats.LGsSeen, States.ArrayLength($.LG.LogGroups))\\"},\\"Next\\":\\"ExecuteRunner\\"},\\"GetNextLogGroups\\":{\\"Next\\":\\"AppendTotal\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.LG\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\\",\\"Parameters\\":{\\"NextToken.$\\":\\"$.LG.NextToken\\"}},\\"HasNextToken?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.LG.NextToken\\",\\"IsPresent\\":true,\\"Next\\":\\"GetNextLogGroups\\"}],\\"Default\\":\\"Work Complete!\\"},\\"Work Complete!\\":{\\"Type\\":\\"Succeed\\",\\"OutputPath\\":\\"$.Stats\\"}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "LogsComptrollerIteratorRole3F6E7D1B",
+            "Arn",
+          ],
+        },
+        "StateMachineName": "logs-comptroller-iterator",
+        "TracingConfiguration": Object {
+          "Enabled": true,
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "LogsComptrollerIteratorEventsRoleDC130B80": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "events.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogsComptrollerIteratorEventsRoleDefaultPolicyA56FB7FE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "LogsComptrollerIteratorEA634D49",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerIteratorEventsRoleDefaultPolicyA56FB7FE",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerIteratorEventsRoleDC130B80",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerIteratorRole3F6E7D1B": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::FindInMap": Array [
+                    "ServiceprincipalMap",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    "states",
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:DescribeLogGroups",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "LogsComptrollerRunner2AB55B01",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerIteratorRole3F6E7D1B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerRunner2AB55B01": Object {
+      "DependsOn": Array [
+        "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+        "LogsComptrollerRunnerRoleEB6A3DA6",
+      ],
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"Map\\",\\"States\\":{\\"Map\\":{\\"Type\\":\\"Map\\",\\"ResultPath\\":\\"$.MapResult\\",\\"Next\\":\\"InitStatsLoop\\",\\"InputPath\\":\\"$.LogGroups\\",\\"Iterator\\":{\\"StartAt\\":\\"GetLGParts\\",\\"States\\":{\\"GetLGParts\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Function\\",\\"Parameters\\":{\\"LGParts.$\\":\\"States.StringSplit($.LogGroupName, '/')\\"},\\"Next\\":\\"GetArrayLen\\"},\\"GetArrayLen\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Array\\",\\"Parameters\\":{\\"Len.$\\":\\"States.ArrayLength($.Function.LGParts)\\"},\\"Next\\":\\"TwoOrMore?\\"},\\"TwoOrMore?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Array.Len\\",\\"NumericGreaterThanEquals\\":2,\\"Next\\":\\"GetLogType\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetLogType\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Log\\",\\"Parameters\\":{\\"LogType.$\\":\\"States.ArrayGetItem($.Function.LGParts, 1)\\"},\\"Next\\":\\"IsLambdaLog?\\"},\\"IsLambdaLog?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Log.LogType\\",\\"StringEquals\\":\\"lambda\\",\\"Next\\":\\"GetFnName\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetFnName\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Function\\",\\"Parameters\\":{\\"FunctionName.$\\":\\"States.ArrayGetItem($.Function.LGParts, 2)\\"},\\"Next\\":\\"FunctionPresent?\\"},\\"FunctionPresent?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Function.FunctionName\\",\\"IsNull\\":false,\\"Next\\":\\"GetFunction\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetFunction\\":{\\"Next\\":\\"HasRetention?\\",\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"ResultPath\\":null,\\"Next\\":\\"DeleteLG\\"}],\\"Type\\":\\"Task\\",\\"ResultPath\\":null,\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:lambda:getFunction\\",\\"Parameters\\":{\\"FunctionName.$\\":\\"$.Function.FunctionName\\"}},\\"HasRetention?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.RetentionInDays\\",\\"IsPresent\\":false,\\"Next\\":\\"AddRetention\\"}],\\"Default\\":\\"lgtm\\"},\\"lgtm\\":{\\"Type\\":\\"Pass\\",\\"Result\\":{\\"IsDeleted\\":0,\\"IsRetained\\":0},\\"End\\":true},\\"AddRetention\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"MaxAttempts\\":10}],\\"Type\\":\\"Task\\",\\"ResultSelector\\":{\\"IsDeleted\\":0,\\"IsRetained\\":1},\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:putRetentionPolicy\\",\\"Parameters\\":{\\"LogGroupName.$\\":\\"$.LogGroupName\\",\\"RetentionInDays\\":7}},\\"DeleteLG\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"MaxAttempts\\":10}],\\"Type\\":\\"Task\\",\\"ResultSelector\\":{\\"IsDeleted\\":1,\\"IsRetained\\":0},\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:deleteLogGroup\\",\\"Parameters\\":{\\"LogGroupName.$\\":\\"$.LogGroupName\\"}}}},\\"MaxConcurrency\\":10},\\"InitStatsLoop\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Iterator\\",\\"Parameters\\":{\\"Index\\":0,\\"ResultLen.$\\":\\"States.ArrayLength($.MapResult)\\"},\\"Next\\":\\"HasNextMapResult?\\"},\\"HasNextMapResult?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Iterator.Index\\",\\"NumericLessThanPath\\":\\"$.Iterator.ResultLen\\",\\"Next\\":\\"GetNextResult\\"}],\\"Default\\":\\"SendSuccess\\"},\\"IncrementCounter\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Iterator\\",\\"Parameters\\":{\\"Index.$\\":\\"States.MathAdd($.Iterator.Index, 1)\\",\\"ResultLen.$\\":\\"$.Iterator.ResultLen\\"},\\"Next\\":\\"HasNextMapResult?\\"},\\"IncrementStats\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted.$\\":\\"States.MathAdd($.Stats.LGsDeleted, $.R.Result.IsDeleted)\\",\\"LGsRetained.$\\":\\"States.MathAdd($.Stats.LGsRetained, $.R.Result.IsRetained)\\",\\"LGsSeen.$\\":\\"$.Stats.LGsSeen\\"},\\"Next\\":\\"IncrementCounter\\"},\\"GetNextResult\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.R\\",\\"Parameters\\":{\\"Result.$\\":\\"States.ArrayGetItem($.MapResult, $.Iterator.Index)\\"},\\"Next\\":\\"IncrementStats\\"},\\"SendSuccess\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:sfn:sendTaskSuccess\\",\\"Parameters\\":{\\"Output.$\\":\\"$.Stats\\",\\"TaskToken.$\\":\\"$.Token\\"}}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "LogsComptrollerRunnerRoleEB6A3DA6",
+            "Arn",
+          ],
+        },
+        "StateMachineName": "logs-comptroller-runner",
+        "TracingConfiguration": Object {
+          "Enabled": true,
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "LogsComptrollerRunnerRoleDefaultPolicyE31C0944": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "states:SendTaskSuccess",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "lambda:getFunction",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:PutRetentionPolicy",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:DeleteLogGroup",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerRunnerRoleEB6A3DA6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerRunnerRoleEB6A3DA6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::FindInMap": Array [
+                    "ServiceprincipalMap",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    "states",
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MyTestConstructLogsComptrollerSchedulerA3F37B64": Object {
+      "Properties": Object {
+        "ScheduleExpression": "cron(0 4 * * ? *)",
+        "State": "ENABLED",
+        "Targets": Array [
+          Object {
+            "Arn": Object {
+              "Ref": "LogsComptrollerIteratorEA634D49",
+            },
+            "Id": "Target0",
+            "RoleArn": Object {
+              "Fn::GetAtt": Array [
+                "LogsComptrollerIteratorEventsRoleDC130B80",
+                "Arn",
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`State Machines Created 1`] = `
+Object {
+  "Mappings": Object {
+    "ServiceprincipalMap": Object {
+      "af-south-1": Object {
+        "states": "states.af-south-1.amazonaws.com",
+      },
+      "ap-east-1": Object {
+        "states": "states.ap-east-1.amazonaws.com",
+      },
+      "ap-northeast-1": Object {
+        "states": "states.ap-northeast-1.amazonaws.com",
+      },
+      "ap-northeast-2": Object {
+        "states": "states.ap-northeast-2.amazonaws.com",
+      },
+      "ap-northeast-3": Object {
+        "states": "states.ap-northeast-3.amazonaws.com",
+      },
+      "ap-south-1": Object {
+        "states": "states.ap-south-1.amazonaws.com",
+      },
+      "ap-southeast-1": Object {
+        "states": "states.ap-southeast-1.amazonaws.com",
+      },
+      "ap-southeast-2": Object {
+        "states": "states.ap-southeast-2.amazonaws.com",
+      },
+      "ap-southeast-3": Object {
+        "states": "states.ap-southeast-3.amazonaws.com",
+      },
+      "ca-central-1": Object {
+        "states": "states.ca-central-1.amazonaws.com",
+      },
+      "cn-north-1": Object {
+        "states": "states.cn-north-1.amazonaws.com",
+      },
+      "cn-northwest-1": Object {
+        "states": "states.cn-northwest-1.amazonaws.com",
+      },
+      "eu-central-1": Object {
+        "states": "states.eu-central-1.amazonaws.com",
+      },
+      "eu-north-1": Object {
+        "states": "states.eu-north-1.amazonaws.com",
+      },
+      "eu-south-1": Object {
+        "states": "states.eu-south-1.amazonaws.com",
+      },
+      "eu-south-2": Object {
+        "states": "states.eu-south-2.amazonaws.com",
+      },
+      "eu-west-1": Object {
+        "states": "states.eu-west-1.amazonaws.com",
+      },
+      "eu-west-2": Object {
+        "states": "states.eu-west-2.amazonaws.com",
+      },
+      "eu-west-3": Object {
+        "states": "states.eu-west-3.amazonaws.com",
+      },
+      "me-south-1": Object {
+        "states": "states.me-south-1.amazonaws.com",
+      },
+      "sa-east-1": Object {
+        "states": "states.sa-east-1.amazonaws.com",
+      },
+      "us-east-1": Object {
+        "states": "states.us-east-1.amazonaws.com",
+      },
+      "us-east-2": Object {
+        "states": "states.us-east-2.amazonaws.com",
+      },
+      "us-gov-east-1": Object {
+        "states": "states.us-gov-east-1.amazonaws.com",
+      },
+      "us-gov-west-1": Object {
+        "states": "states.us-gov-west-1.amazonaws.com",
+      },
+      "us-iso-east-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-iso-west-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-isob-east-1": Object {
+        "states": "states.amazonaws.com",
+      },
+      "us-west-1": Object {
+        "states": "states.us-west-1.amazonaws.com",
+      },
+      "us-west-2": Object {
+        "states": "states.us-west-2.amazonaws.com",
+      },
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "LogsComptrollerIteratorEA634D49": Object {
+      "DependsOn": Array [
+        "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+        "LogsComptrollerIteratorRole3F6E7D1B",
+      ],
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"GetLogGroups\\",\\"States\\":{\\"GetLogGroups\\":{\\"Next\\":\\"SetLGsSeen\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.LG\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\\",\\"Parameters\\":{}},\\"SetLGsSeen\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted\\":0,\\"LGsRetained\\":0,\\"LGsSeen.$\\":\\"States.ArrayLength($.LG.LogGroups)\\"},\\"Next\\":\\"ExecuteRunner\\"},\\"ExecuteRunner\\":{\\"Next\\":\\"HasNextToken?\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.Stats\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::states:startExecution.waitForTaskToken\\",\\"Parameters\\":{\\"Input\\":{\\"LogGroups.$\\":\\"$.LG.LogGroups\\",\\"Stats.$\\":\\"$.Stats\\",\\"Token.$\\":\\"$$.Task.Token\\"},\\"StateMachineArn\\":\\"",
+              Object {
+                "Ref": "LogsComptrollerRunner2AB55B01",
+              },
+              "\\"}},\\"AppendTotal\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted.$\\":\\"$.Stats.LGsDeleted\\",\\"LGsRetained.$\\":\\"$.Stats.LGsRetained\\",\\"LGsSeen.$\\":\\"States.MathAdd($.Stats.LGsSeen, States.ArrayLength($.LG.LogGroups))\\"},\\"Next\\":\\"ExecuteRunner\\"},\\"GetNextLogGroups\\":{\\"Next\\":\\"AppendTotal\\",\\"Type\\":\\"Task\\",\\"ResultPath\\":\\"$.LG\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\\",\\"Parameters\\":{\\"NextToken.$\\":\\"$.LG.NextToken\\"}},\\"HasNextToken?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.LG.NextToken\\",\\"IsPresent\\":true,\\"Next\\":\\"GetNextLogGroups\\"}],\\"Default\\":\\"Work Complete!\\"},\\"Work Complete!\\":{\\"Type\\":\\"Succeed\\",\\"OutputPath\\":\\"$.Stats\\"}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "LogsComptrollerIteratorRole3F6E7D1B",
+            "Arn",
+          ],
+        },
+        "StateMachineName": "logs-comptroller-iterator",
+        "TracingConfiguration": Object {
+          "Enabled": true,
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "LogsComptrollerIteratorRole3F6E7D1B": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::FindInMap": Array [
+                    "ServiceprincipalMap",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    "states",
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:DescribeLogGroups",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "LogsComptrollerRunner2AB55B01",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerIteratorRole3F6E7D1B",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerRunner2AB55B01": Object {
+      "DependsOn": Array [
+        "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+        "LogsComptrollerRunnerRoleEB6A3DA6",
+      ],
+      "Properties": Object {
+        "DefinitionString": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"StartAt\\":\\"Map\\",\\"States\\":{\\"Map\\":{\\"Type\\":\\"Map\\",\\"ResultPath\\":\\"$.MapResult\\",\\"Next\\":\\"InitStatsLoop\\",\\"InputPath\\":\\"$.LogGroups\\",\\"Iterator\\":{\\"StartAt\\":\\"GetLGParts\\",\\"States\\":{\\"GetLGParts\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Function\\",\\"Parameters\\":{\\"LGParts.$\\":\\"States.StringSplit($.LogGroupName, '/')\\"},\\"Next\\":\\"GetArrayLen\\"},\\"GetArrayLen\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Array\\",\\"Parameters\\":{\\"Len.$\\":\\"States.ArrayLength($.Function.LGParts)\\"},\\"Next\\":\\"TwoOrMore?\\"},\\"TwoOrMore?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Array.Len\\",\\"NumericGreaterThanEquals\\":2,\\"Next\\":\\"GetLogType\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetLogType\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Log\\",\\"Parameters\\":{\\"LogType.$\\":\\"States.ArrayGetItem($.Function.LGParts, 1)\\"},\\"Next\\":\\"IsLambdaLog?\\"},\\"IsLambdaLog?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Log.LogType\\",\\"StringEquals\\":\\"lambda\\",\\"Next\\":\\"GetFnName\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetFnName\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Function\\",\\"Parameters\\":{\\"FunctionName.$\\":\\"States.ArrayGetItem($.Function.LGParts, 2)\\"},\\"Next\\":\\"FunctionPresent?\\"},\\"FunctionPresent?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Function.FunctionName\\",\\"IsNull\\":false,\\"Next\\":\\"GetFunction\\"}],\\"Default\\":\\"HasRetention?\\"},\\"GetFunction\\":{\\"Next\\":\\"HasRetention?\\",\\"Catch\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"ResultPath\\":null,\\"Next\\":\\"DeleteLG\\"}],\\"Type\\":\\"Task\\",\\"ResultPath\\":null,\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:lambda:getFunction\\",\\"Parameters\\":{\\"FunctionName.$\\":\\"$.Function.FunctionName\\"}},\\"HasRetention?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.RetentionInDays\\",\\"IsPresent\\":false,\\"Next\\":\\"AddRetention\\"}],\\"Default\\":\\"lgtm\\"},\\"lgtm\\":{\\"Type\\":\\"Pass\\",\\"Result\\":{\\"IsDeleted\\":0,\\"IsRetained\\":0},\\"End\\":true},\\"AddRetention\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"MaxAttempts\\":10}],\\"Type\\":\\"Task\\",\\"ResultSelector\\":{\\"IsDeleted\\":0,\\"IsRetained\\":1},\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:putRetentionPolicy\\",\\"Parameters\\":{\\"LogGroupName.$\\":\\"$.LogGroupName\\",\\"RetentionInDays\\":7}},\\"DeleteLG\\":{\\"End\\":true,\\"Retry\\":[{\\"ErrorEquals\\":[\\"States.ALL\\"],\\"MaxAttempts\\":10}],\\"Type\\":\\"Task\\",\\"ResultSelector\\":{\\"IsDeleted\\":1,\\"IsRetained\\":0},\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:cloudwatchlogs:deleteLogGroup\\",\\"Parameters\\":{\\"LogGroupName.$\\":\\"$.LogGroupName\\"}}}},\\"MaxConcurrency\\":10},\\"InitStatsLoop\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Iterator\\",\\"Parameters\\":{\\"Index\\":0,\\"ResultLen.$\\":\\"States.ArrayLength($.MapResult)\\"},\\"Next\\":\\"HasNextMapResult?\\"},\\"HasNextMapResult?\\":{\\"Type\\":\\"Choice\\",\\"Choices\\":[{\\"Variable\\":\\"$.Iterator.Index\\",\\"NumericLessThanPath\\":\\"$.Iterator.ResultLen\\",\\"Next\\":\\"GetNextResult\\"}],\\"Default\\":\\"SendSuccess\\"},\\"IncrementCounter\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Iterator\\",\\"Parameters\\":{\\"Index.$\\":\\"States.MathAdd($.Iterator.Index, 1)\\",\\"ResultLen.$\\":\\"$.Iterator.ResultLen\\"},\\"Next\\":\\"HasNextMapResult?\\"},\\"IncrementStats\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.Stats\\",\\"Parameters\\":{\\"LGsDeleted.$\\":\\"States.MathAdd($.Stats.LGsDeleted, $.R.Result.IsDeleted)\\",\\"LGsRetained.$\\":\\"States.MathAdd($.Stats.LGsRetained, $.R.Result.IsRetained)\\",\\"LGsSeen.$\\":\\"$.Stats.LGsSeen\\"},\\"Next\\":\\"IncrementCounter\\"},\\"GetNextResult\\":{\\"Type\\":\\"Pass\\",\\"ResultPath\\":\\"$.R\\",\\"Parameters\\":{\\"Result.$\\":\\"States.ArrayGetItem($.MapResult, $.Iterator.Index)\\"},\\"Next\\":\\"IncrementStats\\"},\\"SendSuccess\\":{\\"End\\":true,\\"Type\\":\\"Task\\",\\"Resource\\":\\"arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":states:::aws-sdk:sfn:sendTaskSuccess\\",\\"Parameters\\":{\\"Output.$\\":\\"$.Stats\\",\\"TaskToken.$\\":\\"$.Token\\"}}}}",
+            ],
+          ],
+        },
+        "RoleArn": Object {
+          "Fn::GetAtt": Array [
+            "LogsComptrollerRunnerRoleEB6A3DA6",
+            "Arn",
+          ],
+        },
+        "StateMachineName": "logs-comptroller-runner",
+        "TracingConfiguration": Object {
+          "Enabled": true,
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "LogsComptrollerRunnerRoleDefaultPolicyE31C0944": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "states:SendTaskSuccess",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "lambda:getFunction",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:PutRetentionPolicy",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": "logs:DeleteLogGroup",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+        "Roles": Array [
+          Object {
+            "Ref": "LogsComptrollerRunnerRoleEB6A3DA6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogsComptrollerRunnerRoleEB6A3DA6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": Object {
+                  "Fn::FindInMap": Array [
+                    "ServiceprincipalMap",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    "states",
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

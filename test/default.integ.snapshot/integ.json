@@ -1,0 +1,31 @@
+{
+  "version": "21.0.0",
+  "testCases": {
+    "Integ/DefaultTest": {
+      "stacks": [
+        "StackUnderTest"
+      ],
+      "regions": [
+        "us-east-1",
+        "us-west-2"
+      ],
+      "diffAssets": true,
+      "cdkCommandOptions": {
+        "deploy": {
+          "args": {
+            "json": true,
+            "requireApproval": "never"
+          }
+        },
+        "destroy": {
+          "args": {
+            "force": true
+          }
+        }
+      },
+      "stackUpdateWorkflow": true,
+      "assertionStack": "Integ/DefaultTest/DeployAssert",
+      "assertionStackName": "IntegDefaultTestDeployAssert4E6713E1"
+    }
+  }
+}

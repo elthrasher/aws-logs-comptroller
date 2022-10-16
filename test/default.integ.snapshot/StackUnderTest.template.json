@@ -1,0 +1,332 @@
+{
+ "Resources": {
+  "LogsComptrollerRunnerRoleEB6A3DA6": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": {
+         "Fn::FindInMap": [
+          "ServiceprincipalMap",
+          {
+           "Ref": "AWS::Region"
+          },
+          "states"
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "LogsComptrollerRunnerRoleDefaultPolicyE31C0944": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "lambda:getFunction",
+        "logs:DeleteLogGroup",
+        "logs:PutRetentionPolicy",
+        "states:SendTaskSuccess",
+        "xray:GetSamplingRules",
+        "xray:GetSamplingTargets",
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+    "Roles": [
+     {
+      "Ref": "LogsComptrollerRunnerRoleEB6A3DA6"
+     }
+    ]
+   }
+  },
+  "LogsComptrollerRunner2AB55B01": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "LogsComptrollerRunnerRoleEB6A3DA6",
+      "Arn"
+     ]
+    },
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"StartAt\":\"Map\",\"States\":{\"Map\":{\"Type\":\"Map\",\"ResultPath\":\"$.MapResult\",\"Next\":\"InitStatsLoop\",\"InputPath\":\"$.LogGroups\",\"Iterator\":{\"StartAt\":\"GetLGParts\",\"States\":{\"GetLGParts\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Function\",\"Parameters\":{\"LGParts.$\":\"States.StringSplit($.LogGroupName, '/')\"},\"Next\":\"GetArrayLen\"},\"GetArrayLen\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Array\",\"Parameters\":{\"Len.$\":\"States.ArrayLength($.Function.LGParts)\"},\"Next\":\"TwoOrMore?\"},\"TwoOrMore?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Array.Len\",\"NumericGreaterThanEquals\":2,\"Next\":\"GetLogType\"}],\"Default\":\"HasRetention?\"},\"GetLogType\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Log\",\"Parameters\":{\"LogType.$\":\"States.ArrayGetItem($.Function.LGParts, 1)\"},\"Next\":\"IsLambdaLog?\"},\"IsLambdaLog?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Log.LogType\",\"StringEquals\":\"lambda\",\"Next\":\"GetFnName\"}],\"Default\":\"HasRetention?\"},\"GetFnName\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Function\",\"Parameters\":{\"FunctionName.$\":\"States.ArrayGetItem($.Function.LGParts, 2)\"},\"Next\":\"FunctionPresent?\"},\"FunctionPresent?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Function.FunctionName\",\"IsNull\":false,\"Next\":\"GetFunction\"}],\"Default\":\"HasRetention?\"},\"GetFunction\":{\"Next\":\"HasRetention?\",\"Catch\":[{\"ErrorEquals\":[\"States.TaskFailed\"],\"ResultPath\":null,\"Next\":\"DeleteLG\"}],\"Type\":\"Task\",\"ResultPath\":null,\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::aws-sdk:lambda:getFunction\",\"Parameters\":{\"FunctionName.$\":\"$.Function.FunctionName\"}},\"HasRetention?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.RetentionInDays\",\"IsPresent\":false,\"Next\":\"AddRetention\"}],\"Default\":\"lgtm\"},\"lgtm\":{\"Type\":\"Pass\",\"Result\":{\"IsDeleted\":0,\"IsRetained\":0},\"End\":true},\"AddRetention\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"MaxAttempts\":10}],\"Type\":\"Task\",\"ResultSelector\":{\"IsDeleted\":0,\"IsRetained\":1},\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::aws-sdk:cloudwatchlogs:putRetentionPolicy\",\"Parameters\":{\"LogGroupName.$\":\"$.LogGroupName\",\"RetentionInDays\":7}},\"DeleteLG\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"MaxAttempts\":10}],\"Type\":\"Task\",\"ResultSelector\":{\"IsDeleted\":1,\"IsRetained\":0},\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::aws-sdk:cloudwatchlogs:deleteLogGroup\",\"Parameters\":{\"LogGroupName.$\":\"$.LogGroupName\"}}}},\"MaxConcurrency\":10},\"InitStatsLoop\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Iterator\",\"Parameters\":{\"Index\":0,\"ResultLen.$\":\"States.ArrayLength($.MapResult)\"},\"Next\":\"HasNextMapResult?\"},\"HasNextMapResult?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Iterator.Index\",\"NumericLessThanPath\":\"$.Iterator.ResultLen\",\"Next\":\"GetNextResult\"}],\"Default\":\"SendSuccess\"},\"IncrementCounter\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Iterator\",\"Parameters\":{\"Index.$\":\"States.MathAdd($.Iterator.Index, 1)\",\"ResultLen.$\":\"$.Iterator.ResultLen\"},\"Next\":\"HasNextMapResult?\"},\"IncrementStats\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Stats\",\"Parameters\":{\"LGsDeleted.$\":\"States.MathAdd($.Stats.LGsDeleted, $.R.Result.IsDeleted)\",\"LGsRetained.$\":\"States.MathAdd($.Stats.LGsRetained, $.R.Result.IsRetained)\",\"LGsSeen.$\":\"$.Stats.LGsSeen\"},\"Next\":\"IncrementCounter\"},\"GetNextResult\":{\"Type\":\"Pass\",\"ResultPath\":\"$.R\",\"Parameters\":{\"Result.$\":\"States.ArrayGetItem($.MapResult, $.Iterator.Index)\"},\"Next\":\"IncrementStats\"},\"SendSuccess\":{\"End\":true,\"Type\":\"Task\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::aws-sdk:sfn:sendTaskSuccess\",\"Parameters\":{\"Output.$\":\"$.Stats\",\"TaskToken.$\":\"$.Token\"}}}}"
+      ]
+     ]
+    },
+    "StateMachineName": "logs-comptroller-runner",
+    "TracingConfiguration": {
+     "Enabled": true
+    }
+   },
+   "DependsOn": [
+    "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+    "LogsComptrollerRunnerRoleEB6A3DA6"
+   ]
+  },
+  "LogsComptrollerIteratorRole3F6E7D1B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": {
+         "Fn::FindInMap": [
+          "ServiceprincipalMap",
+          {
+           "Ref": "AWS::Region"
+          },
+          "states"
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DescribeLogGroups",
+        "xray:GetSamplingRules",
+        "xray:GetSamplingTargets",
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "LogsComptrollerRunner2AB55B01"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+    "Roles": [
+     {
+      "Ref": "LogsComptrollerIteratorRole3F6E7D1B"
+     }
+    ]
+   }
+  },
+  "LogsComptrollerIteratorEA634D49": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "LogsComptrollerIteratorRole3F6E7D1B",
+      "Arn"
+     ]
+    },
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"StartAt\":\"GetLogGroups\",\"States\":{\"GetLogGroups\":{\"Next\":\"SetLGsSeen\",\"Type\":\"Task\",\"ResultPath\":\"$.LG\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\",\"Parameters\":{}},\"SetLGsSeen\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Stats\",\"Parameters\":{\"LGsDeleted\":0,\"LGsRetained\":0,\"LGsSeen.$\":\"States.ArrayLength($.LG.LogGroups)\"},\"Next\":\"ExecuteRunner\"},\"ExecuteRunner\":{\"Next\":\"HasNextToken?\",\"Type\":\"Task\",\"ResultPath\":\"$.Stats\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::states:startExecution.waitForTaskToken\",\"Parameters\":{\"Input\":{\"LogGroups.$\":\"$.LG.LogGroups\",\"Stats.$\":\"$.Stats\",\"Token.$\":\"$$.Task.Token\"},\"StateMachineArn\":\"",
+       {
+        "Ref": "LogsComptrollerRunner2AB55B01"
+       },
+       "\"}},\"AppendTotal\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Stats\",\"Parameters\":{\"LGsDeleted.$\":\"$.Stats.LGsDeleted\",\"LGsRetained.$\":\"$.Stats.LGsRetained\",\"LGsSeen.$\":\"States.MathAdd($.Stats.LGsSeen, States.ArrayLength($.LG.LogGroups))\"},\"Next\":\"ExecuteRunner\"},\"GetNextLogGroups\":{\"Next\":\"AppendTotal\",\"Type\":\"Task\",\"ResultPath\":\"$.LG\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\",\"Parameters\":{\"NextToken.$\":\"$.LG.NextToken\"}},\"HasNextToken?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.LG.NextToken\",\"IsPresent\":true,\"Next\":\"GetNextLogGroups\"}],\"Default\":\"Work Complete!\"},\"Work Complete!\":{\"Type\":\"Succeed\",\"OutputPath\":\"$.Stats\"}}}"
+      ]
+     ]
+    },
+    "StateMachineName": "logs-comptroller-iterator",
+    "TracingConfiguration": {
+     "Enabled": true
+    }
+   },
+   "DependsOn": [
+    "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+    "LogsComptrollerIteratorRole3F6E7D1B"
+   ]
+  }
+ },
+ "Mappings": {
+  "ServiceprincipalMap": {
+   "af-south-1": {
+    "states": "states.af-south-1.amazonaws.com"
+   },
+   "ap-east-1": {
+    "states": "states.ap-east-1.amazonaws.com"
+   },
+   "ap-northeast-1": {
+    "states": "states.ap-northeast-1.amazonaws.com"
+   },
+   "ap-northeast-2": {
+    "states": "states.ap-northeast-2.amazonaws.com"
+   },
+   "ap-northeast-3": {
+    "states": "states.ap-northeast-3.amazonaws.com"
+   },
+   "ap-south-1": {
+    "states": "states.ap-south-1.amazonaws.com"
+   },
+   "ap-southeast-1": {
+    "states": "states.ap-southeast-1.amazonaws.com"
+   },
+   "ap-southeast-2": {
+    "states": "states.ap-southeast-2.amazonaws.com"
+   },
+   "ap-southeast-3": {
+    "states": "states.ap-southeast-3.amazonaws.com"
+   },
+   "ca-central-1": {
+    "states": "states.ca-central-1.amazonaws.com"
+   },
+   "cn-north-1": {
+    "states": "states.cn-north-1.amazonaws.com"
+   },
+   "cn-northwest-1": {
+    "states": "states.cn-northwest-1.amazonaws.com"
+   },
+   "eu-central-1": {
+    "states": "states.eu-central-1.amazonaws.com"
+   },
+   "eu-north-1": {
+    "states": "states.eu-north-1.amazonaws.com"
+   },
+   "eu-south-1": {
+    "states": "states.eu-south-1.amazonaws.com"
+   },
+   "eu-south-2": {
+    "states": "states.eu-south-2.amazonaws.com"
+   },
+   "eu-west-1": {
+    "states": "states.eu-west-1.amazonaws.com"
+   },
+   "eu-west-2": {
+    "states": "states.eu-west-2.amazonaws.com"
+   },
+   "eu-west-3": {
+    "states": "states.eu-west-3.amazonaws.com"
+   },
+   "me-south-1": {
+    "states": "states.me-south-1.amazonaws.com"
+   },
+   "sa-east-1": {
+    "states": "states.sa-east-1.amazonaws.com"
+   },
+   "us-east-1": {
+    "states": "states.us-east-1.amazonaws.com"
+   },
+   "us-east-2": {
+    "states": "states.us-east-2.amazonaws.com"
+   },
+   "us-gov-east-1": {
+    "states": "states.us-gov-east-1.amazonaws.com"
+   },
+   "us-gov-west-1": {
+    "states": "states.us-gov-west-1.amazonaws.com"
+   },
+   "us-iso-east-1": {
+    "states": "states.amazonaws.com"
+   },
+   "us-iso-west-1": {
+    "states": "states.amazonaws.com"
+   },
+   "us-isob-east-1": {
+    "states": "states.amazonaws.com"
+   },
+   "us-west-1": {
+    "states": "states.us-west-1.amazonaws.com"
+   },
+   "us-west-2": {
+    "states": "states.us-west-2.amazonaws.com"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
