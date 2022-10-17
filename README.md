@@ -10,7 +10,7 @@ AWS Logs Comptroller can handle a large number of LogGroups without failure or t
 const app = new App();
 const stack = new Stack(app);
 
-new AwsLogsComptroller(this, stack);
+new AwsLogsComptroller(stack, 'LogsComptroller');
 ```
 
 ## Log Retention
@@ -21,7 +21,7 @@ AWS Logs Comptroller will apply a [retention period](https://docs.aws.amazon.com
 const app = new App();
 const stack = new Stack(app);
 
-new AwsLogsComptroller(this, stack, { retentionDays: RetentionDays.ONE_DAY });
+new AwsLogsComptroller(stack, 'LogsComptroller', { retentionDays: RetentionDays.ONE_DAY });
 ```
 
 ## Removing 'orphaned' Lambda LogGroups
@@ -36,7 +36,7 @@ AWS Logs Comptroller can be scheduled using an EventBridge rule. By default, it'
 const app = new App();
 const stack = new Stack(app);
 
-new AwsLogsComptroller(this, stack, { schedule: true });
+new AwsLogsComptroller(stack, 'LogsComptroller', { schedule: true });
 ```
 
 The `schedule` prop can also accept a cron expression.
@@ -45,7 +45,7 @@ The `schedule` prop can also accept a cron expression.
 const app = new App();
 const stack = new Stack(app);
 
-new AwsLogsComptroller(this, stack, { schedule: Schedule.cron({ day: '1', hour: '4', minute: '0', }) });
+new AwsLogsComptroller(stack, 'LogsComptroller', { schedule: Schedule.cron({ day: '1', hour: '4', minute: '0', }) });
 ```
 
 Additionally the schedule Rule can be assigned to a custom EventBus.
@@ -55,5 +55,5 @@ const app = new App();
 const stack = new Stack(app);
 
 const bus = new EventBus(stack, 'MyEventBus');
-new AwsLogsComptroller(this, stack, { eventBus: bus, schedule: true });
+new AwsLogsComptroller(stack, 'LogsComptroller', { eventBus: bus, schedule: true });
 ```
