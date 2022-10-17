@@ -1,11 +1,41 @@
 {
   "name": "aws-logs-comptroller",
-  "version": "0.1.0",
+  "author": {
+    "email": "elthrasher@gmail.com",
+    "name": "Matt Morgan",
+    "url": "https://mattmorgan.cloud"
+  },
+  "description": "Set Log Retention and prune orphaned LogGroups on a schedule using Step Functions service integrations and intrinsic functions.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elthrasher/aws-logs-comptroller"
+  },
+  "keywords": [
+    "aws",
+    "awscdk",
+    "cdk",
+    "cloudwatch",
+    "intrinsic",
+    "logs",
+    "loggroups",
+    "retention",
+    "serverless",
+    "step functions"
+  ],
+  "license": "Apache-2.0",
+  "version": "0.1.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "build": "jsii",
+    "build:watch": "jsii --watch",
+    "clean": "rimraf cdk.out dist lib",
     "integ": "tsc --build tsconfig.dev.json && integ-runner",
-    "lint": "eslint --ext .ts --fix lib test",
+    "lint": "eslint --ext .ts --fix src test",
+    "package": "jsii-pacmak",
+    "prebuild": "npm run clean",
+    "prebuild:watch": "npm run clean",
+    "prepackage": "npm run clean",
     "pretest": "npm run lint",
     "test": "jest"
   },
@@ -13,20 +43,32 @@
     "@aws-cdk/integ-runner": "^2.46.0",
     "@aws-cdk/integ-tests-alpha": "^2.46.0-alpha.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "10.17.27",
+    "@types/node": "^18.11.0",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "aws-cdk-lib": "2.46.0",
-    "constructs": "^10.0.0",
+    "constructs": "10.1.131",
     "eslint": "^8.25.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
     "jest": "^27.5.1",
+    "jsii": "^1.69.0",
+    "jsii-pacmak": "^1.69.0",
+    "rimraf": "^3.0.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
   "peerDependencies": {
     "aws-cdk-lib": "2.46.0",
-    "constructs": "^10.0.0"
+    "constructs": "10.1.131"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "versionFormat": "full",
+    "targets": {},
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
+    }
   }
 }

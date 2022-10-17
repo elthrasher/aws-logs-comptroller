@@ -2,7 +2,7 @@ import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { Schedule } from 'aws-cdk-lib/aws-events';
 
-import { AwsLogsComptroller } from '../lib';
+import { AwsLogsComptroller } from '../src';
 
 test('State Machines Created', () => {
   const app = new App();

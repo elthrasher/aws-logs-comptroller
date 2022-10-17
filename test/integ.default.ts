@@ -3,7 +3,7 @@ import { App, ArnFormat, Stack, StackProps } from 'aws-cdk-lib';
 import { RequireApproval } from 'aws-cdk-lib/cloud-assembly-schema';
 import { Construct } from 'constructs';
 
-import { AwsLogsComptroller } from '../lib';
+import { AwsLogsComptroller } from '../src';
 
 class StackUnderTest extends Stack {
   constructor (scope: Construct, id: string, props?: StackProps) {
