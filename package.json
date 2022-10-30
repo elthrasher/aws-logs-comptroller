@@ -29,25 +29,26 @@
   "scripts": {
     "build": "jsii",
     "build:watch": "jsii --watch",
-    "clean": "rimraf cdk.out dist lib",
+    "clean": "rimraf cdk.out coverage dist lib",
     "integ": "tsc --build tsconfig.dev.json && integ-runner",
     "lint": "eslint --ext .ts --fix src test",
     "package": "jsii-pacmak",
     "prebuild": "npm run clean",
     "prebuild:watch": "npm run clean",
+    "preinteg": "npm run clean",
     "prepackage": "npm run build",
     "pretest": "npm run lint",
     "test": "jest"
   },
   "devDependencies": {
-    "@aws-cdk/integ-runner": "^2.46.0",
-    "@aws-cdk/integ-tests-alpha": "^2.46.0-alpha.0",
+    "@aws-cdk/integ-runner": "2.49.0",
+    "@aws-cdk/integ-tests-alpha": "2.49.0-alpha.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^18.11.0",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
-    "aws-cdk-lib": "2.46.0",
-    "constructs": "10.1.131",
+    "aws-cdk-lib": "2.49.0",
+    "constructs": "10.1.143",
     "eslint": "^8.25.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
     "jest": "^27.5.1",
@@ -59,13 +60,18 @@
     "typescript": "^4.8.4"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "2.46.0",
-    "constructs": "10.1.131"
+    "aws-cdk-lib": "^2",
+    "constructs": "^10"
   },
   "jsii": {
     "outdir": "dist",
     "versionFormat": "full",
-    "targets": {},
+    "targets": {
+      "python": {
+        "distName": "aws-logs-comptroller",
+        "module": "cdk_aws_logs_comptroller"
+      }
+    },
     "tsc": {
       "outDir": "lib",
       "rootDir": "src"
