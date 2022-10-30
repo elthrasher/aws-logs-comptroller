@@ -1,0 +1,873 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.131"
+        }
+      },
+      "StackUnderTest": {
+        "id": "StackUnderTest",
+        "path": "StackUnderTest",
+        "children": {
+          "LogsComptroller": {
+            "id": "LogsComptroller",
+            "path": "StackUnderTest/LogsComptroller",
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.131"
+            }
+          },
+          "Map": {
+            "id": "Map",
+            "path": "StackUnderTest/Map",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Map",
+              "version": "2.46.0"
+            }
+          },
+          "GetLGParts": {
+            "id": "GetLGParts",
+            "path": "StackUnderTest/GetLGParts",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "GetArrayLen": {
+            "id": "GetArrayLen",
+            "path": "StackUnderTest/GetArrayLen",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "TwoOrMore?": {
+            "id": "TwoOrMore?",
+            "path": "StackUnderTest/TwoOrMore?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.46.0"
+            }
+          },
+          "GetLogType": {
+            "id": "GetLogType",
+            "path": "StackUnderTest/GetLogType",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "IsLambdaLog?": {
+            "id": "IsLambdaLog?",
+            "path": "StackUnderTest/IsLambdaLog?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.46.0"
+            }
+          },
+          "GetFnName": {
+            "id": "GetFnName",
+            "path": "StackUnderTest/GetFnName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "FunctionPresent?": {
+            "id": "FunctionPresent?",
+            "path": "StackUnderTest/FunctionPresent?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.46.0"
+            }
+          },
+          "GetFunction": {
+            "id": "GetFunction",
+            "path": "StackUnderTest/GetFunction",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService",
+              "version": "2.46.0"
+            }
+          },
+          "DeleteLG": {
+            "id": "DeleteLG",
+            "path": "StackUnderTest/DeleteLG",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService",
+              "version": "2.46.0"
+            }
+          },
+          "AddRetention": {
+            "id": "AddRetention",
+            "path": "StackUnderTest/AddRetention",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService",
+              "version": "2.46.0"
+            }
+          },
+          "HasRetention?": {
+            "id": "HasRetention?",
+            "path": "StackUnderTest/HasRetention?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.46.0"
+            }
+          },
+          "lgtm": {
+            "id": "lgtm",
+            "path": "StackUnderTest/lgtm",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "InitStatsLoop": {
+            "id": "InitStatsLoop",
+            "path": "StackUnderTest/InitStatsLoop",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "GetNextResult": {
+            "id": "GetNextResult",
+            "path": "StackUnderTest/GetNextResult",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "IncrementStats": {
+            "id": "IncrementStats",
+            "path": "StackUnderTest/IncrementStats",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "IncrementCounter": {
+            "id": "IncrementCounter",
+            "path": "StackUnderTest/IncrementCounter",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "SendSuccess": {
+            "id": "SendSuccess",
+            "path": "StackUnderTest/SendSuccess",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService",
+              "version": "2.46.0"
+            }
+          },
+          "HasNextMapResult?": {
+            "id": "HasNextMapResult?",
+            "path": "StackUnderTest/HasNextMapResult?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.46.0"
+            }
+          },
+          "LogsComptrollerRunner": {
+            "id": "LogsComptrollerRunner",
+            "path": "StackUnderTest/LogsComptrollerRunner",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "StackUnderTest/LogsComptrollerRunner/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "StackUnderTest/LogsComptrollerRunner/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": {
+                                  "Fn::FindInMap": [
+                                    "ServiceprincipalMap",
+                                    {
+                                      "Ref": "AWS::Region"
+                                    },
+                                    "states"
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.46.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "StackUnderTest/LogsComptrollerRunner/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "StackUnderTest/LogsComptrollerRunner/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "lambda:getFunction",
+                                    "logs:DeleteLogGroup",
+                                    "logs:PutRetentionPolicy",
+                                    "states:SendTaskSuccess",
+                                    "xray:GetSamplingRules",
+                                    "xray:GetSamplingTargets",
+                                    "xray:PutTelemetryRecords",
+                                    "xray:PutTraceSegments"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "LogsComptrollerRunnerRoleDefaultPolicyE31C0944",
+                            "roles": [
+                              {
+                                "Ref": "LogsComptrollerRunnerRoleEB6A3DA6"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.46.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.46.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.46.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "StackUnderTest/LogsComptrollerRunner/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::StepFunctions::StateMachine",
+                  "aws:cdk:cloudformation:props": {
+                    "roleArn": {
+                      "Fn::GetAtt": [
+                        "LogsComptrollerRunnerRoleEB6A3DA6",
+                        "Arn"
+                      ]
+                    },
+                    "definitionString": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{\"StartAt\":\"Map\",\"States\":{\"Map\":{\"Type\":\"Map\",\"ResultPath\":\"$.MapResult\",\"Next\":\"InitStatsLoop\",\"InputPath\":\"$.LogGroups\",\"Iterator\":{\"StartAt\":\"GetLGParts\",\"States\":{\"GetLGParts\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Function\",\"Parameters\":{\"LGParts.$\":\"States.StringSplit($.LogGroupName, '/')\"},\"Next\":\"GetArrayLen\"},\"GetArrayLen\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Array\",\"Parameters\":{\"Len.$\":\"States.ArrayLength($.Function.LGParts)\"},\"Next\":\"TwoOrMore?\"},\"TwoOrMore?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Array.Len\",\"NumericGreaterThanEquals\":2,\"Next\":\"GetLogType\"}],\"Default\":\"HasRetention?\"},\"GetLogType\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Log\",\"Parameters\":{\"LogType.$\":\"States.ArrayGetItem($.Function.LGParts, 1)\"},\"Next\":\"IsLambdaLog?\"},\"IsLambdaLog?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Log.LogType\",\"StringEquals\":\"lambda\",\"Next\":\"GetFnName\"}],\"Default\":\"HasRetention?\"},\"GetFnName\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Function\",\"Parameters\":{\"FunctionName.$\":\"States.ArrayGetItem($.Function.LGParts, 2)\"},\"Next\":\"FunctionPresent?\"},\"FunctionPresent?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Function.FunctionName\",\"IsNull\":false,\"Next\":\"GetFunction\"}],\"Default\":\"HasRetention?\"},\"GetFunction\":{\"Next\":\"HasRetention?\",\"Catch\":[{\"ErrorEquals\":[\"States.TaskFailed\"],\"ResultPath\":null,\"Next\":\"DeleteLG\"}],\"Type\":\"Task\",\"ResultPath\":null,\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::aws-sdk:lambda:getFunction\",\"Parameters\":{\"FunctionName.$\":\"$.Function.FunctionName\"}},\"HasRetention?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.RetentionInDays\",\"IsPresent\":false,\"Next\":\"AddRetention\"}],\"Default\":\"lgtm\"},\"lgtm\":{\"Type\":\"Pass\",\"Result\":{\"IsDeleted\":0,\"IsRetained\":0},\"End\":true},\"AddRetention\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"MaxAttempts\":10}],\"Type\":\"Task\",\"ResultSelector\":{\"IsDeleted\":0,\"IsRetained\":1},\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::aws-sdk:cloudwatchlogs:putRetentionPolicy\",\"Parameters\":{\"LogGroupName.$\":\"$.LogGroupName\",\"RetentionInDays\":7}},\"DeleteLG\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"MaxAttempts\":10}],\"Type\":\"Task\",\"ResultSelector\":{\"IsDeleted\":1,\"IsRetained\":0},\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::aws-sdk:cloudwatchlogs:deleteLogGroup\",\"Parameters\":{\"LogGroupName.$\":\"$.LogGroupName\"}}}},\"MaxConcurrency\":10},\"InitStatsLoop\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Iterator\",\"Parameters\":{\"Index\":0,\"ResultLen.$\":\"States.ArrayLength($.MapResult)\"},\"Next\":\"HasNextMapResult?\"},\"HasNextMapResult?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.Iterator.Index\",\"NumericLessThanPath\":\"$.Iterator.ResultLen\",\"Next\":\"GetNextResult\"}],\"Default\":\"SendSuccess\"},\"IncrementCounter\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Iterator\",\"Parameters\":{\"Index.$\":\"States.MathAdd($.Iterator.Index, 1)\",\"ResultLen.$\":\"$.Iterator.ResultLen\"},\"Next\":\"HasNextMapResult?\"},\"IncrementStats\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Stats\",\"Parameters\":{\"LGsDeleted.$\":\"States.MathAdd($.Stats.LGsDeleted, $.R.Result.IsDeleted)\",\"LGsRetained.$\":\"States.MathAdd($.Stats.LGsRetained, $.R.Result.IsRetained)\",\"LGsSeen.$\":\"$.Stats.LGsSeen\"},\"Next\":\"IncrementCounter\"},\"GetNextResult\":{\"Type\":\"Pass\",\"ResultPath\":\"$.R\",\"Parameters\":{\"Result.$\":\"States.ArrayGetItem($.MapResult, $.Iterator.Index)\"},\"Next\":\"IncrementStats\"},\"SendSuccess\":{\"End\":true,\"Type\":\"Task\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::aws-sdk:sfn:sendTaskSuccess\",\"Parameters\":{\"Output.$\":\"$.Stats\",\"TaskToken.$\":\"$.Token\"}}}}"
+                        ]
+                      ]
+                    },
+                    "stateMachineName": "logs-comptroller-runner",
+                    "tracingConfiguration": {
+                      "enabled": true
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_stepfunctions.CfnStateMachine",
+                  "version": "2.46.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.StateMachine",
+              "version": "2.46.0"
+            }
+          },
+          "GetLogGroups": {
+            "id": "GetLogGroups",
+            "path": "StackUnderTest/GetLogGroups",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService",
+              "version": "2.46.0"
+            }
+          },
+          "SetLGsSeen": {
+            "id": "SetLGsSeen",
+            "path": "StackUnderTest/SetLGsSeen",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "ExecuteRunner": {
+            "id": "ExecuteRunner",
+            "path": "StackUnderTest/ExecuteRunner",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.StepFunctionsStartExecution",
+              "version": "2.46.0"
+            }
+          },
+          "HasNextToken?": {
+            "id": "HasNextToken?",
+            "path": "StackUnderTest/HasNextToken?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.46.0"
+            }
+          },
+          "GetNextLogGroups": {
+            "id": "GetNextLogGroups",
+            "path": "StackUnderTest/GetNextLogGroups",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.CallAwsService",
+              "version": "2.46.0"
+            }
+          },
+          "AppendTotal": {
+            "id": "AppendTotal",
+            "path": "StackUnderTest/AppendTotal",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.46.0"
+            }
+          },
+          "Work Complete!": {
+            "id": "Work Complete!",
+            "path": "StackUnderTest/Work Complete!",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Succeed",
+              "version": "2.46.0"
+            }
+          },
+          "LogsComptrollerIterator": {
+            "id": "LogsComptrollerIterator",
+            "path": "StackUnderTest/LogsComptrollerIterator",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "StackUnderTest/LogsComptrollerIterator/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "StackUnderTest/LogsComptrollerIterator/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": {
+                                  "Fn::FindInMap": [
+                                    "ServiceprincipalMap",
+                                    {
+                                      "Ref": "AWS::Region"
+                                    },
+                                    "states"
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.46.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "StackUnderTest/LogsComptrollerIterator/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "StackUnderTest/LogsComptrollerIterator/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "logs:DescribeLogGroups",
+                                    "xray:GetSamplingRules",
+                                    "xray:GetSamplingTargets",
+                                    "xray:PutTelemetryRecords",
+                                    "xray:PutTraceSegments"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": "states:StartExecution",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Ref": "LogsComptrollerRunner2AB55B01"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "LogsComptrollerIteratorRoleDefaultPolicyE5E8B0AE",
+                            "roles": [
+                              {
+                                "Ref": "LogsComptrollerIteratorRole3F6E7D1B"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.46.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.46.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.46.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "StackUnderTest/LogsComptrollerIterator/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::StepFunctions::StateMachine",
+                  "aws:cdk:cloudformation:props": {
+                    "roleArn": {
+                      "Fn::GetAtt": [
+                        "LogsComptrollerIteratorRole3F6E7D1B",
+                        "Arn"
+                      ]
+                    },
+                    "definitionString": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{\"StartAt\":\"GetLogGroups\",\"States\":{\"GetLogGroups\":{\"Next\":\"SetLGsSeen\",\"Type\":\"Task\",\"ResultPath\":\"$.LG\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\",\"Parameters\":{}},\"SetLGsSeen\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Stats\",\"Parameters\":{\"LGsDeleted\":0,\"LGsRetained\":0,\"LGsSeen.$\":\"States.ArrayLength($.LG.LogGroups)\"},\"Next\":\"ExecuteRunner\"},\"ExecuteRunner\":{\"Next\":\"HasNextToken?\",\"Type\":\"Task\",\"ResultPath\":\"$.Stats\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::states:startExecution.waitForTaskToken\",\"Parameters\":{\"Input\":{\"LogGroups.$\":\"$.LG.LogGroups\",\"Stats.$\":\"$.Stats\",\"Token.$\":\"$$.Task.Token\"},\"StateMachineArn\":\"",
+                          {
+                            "Ref": "LogsComptrollerRunner2AB55B01"
+                          },
+                          "\"}},\"AppendTotal\":{\"Type\":\"Pass\",\"ResultPath\":\"$.Stats\",\"Parameters\":{\"LGsDeleted.$\":\"$.Stats.LGsDeleted\",\"LGsRetained.$\":\"$.Stats.LGsRetained\",\"LGsSeen.$\":\"States.MathAdd($.Stats.LGsSeen, States.ArrayLength($.LG.LogGroups))\"},\"Next\":\"ExecuteRunner\"},\"GetNextLogGroups\":{\"Next\":\"AppendTotal\",\"Type\":\"Task\",\"ResultPath\":\"$.LG\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::aws-sdk:cloudwatchlogs:describeLogGroups\",\"Parameters\":{\"NextToken.$\":\"$.LG.NextToken\"}},\"HasNextToken?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.LG.NextToken\",\"IsPresent\":true,\"Next\":\"GetNextLogGroups\"}],\"Default\":\"Work Complete!\"},\"Work Complete!\":{\"Type\":\"Succeed\",\"OutputPath\":\"$.Stats\"}}}"
+                        ]
+                      ]
+                    },
+                    "stateMachineName": "logs-comptroller-iterator",
+                    "tracingConfiguration": {
+                      "enabled": true
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_stepfunctions.CfnStateMachine",
+                  "version": "2.46.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.StateMachine",
+              "version": "2.46.0"
+            }
+          },
+          "Service-principalMap": {
+            "id": "Service-principalMap",
+            "path": "StackUnderTest/Service-principalMap",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnMapping",
+              "version": "2.46.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.46.0"
+        }
+      },
+      "DeployAssert": {
+        "id": "DeployAssert",
+        "path": "DeployAssert",
+        "children": {
+          "AwsApiCallStepFunctionsstartExecution": {
+            "id": "AwsApiCallStepFunctionsstartExecution",
+            "path": "DeployAssert/AwsApiCallStepFunctionsstartExecution",
+            "children": {
+              "SdkProvider": {
+                "id": "SdkProvider",
+                "path": "DeployAssert/AwsApiCallStepFunctionsstartExecution/SdkProvider",
+                "children": {
+                  "AssertionsProvider": {
+                    "id": "AssertionsProvider",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsstartExecution/SdkProvider/AssertionsProvider",
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.131"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/integ-tests-alpha.AssertionsProvider",
+                  "version": "2.46.0-alpha.0"
+                }
+              },
+              "Default": {
+                "id": "Default",
+                "path": "DeployAssert/AwsApiCallStepFunctionsstartExecution/Default",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsstartExecution/Default/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.46.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CustomResource",
+                  "version": "2.46.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/integ-tests-alpha.AwsApiCall",
+              "version": "2.46.0-alpha.0"
+            }
+          },
+          "SingletonFunction1488541a7b23466481b69b4408076b81": {
+            "id": "SingletonFunction1488541a7b23466481b69b4408076b81",
+            "path": "DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.46.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.46.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.46.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.131"
+            }
+          },
+          "AwsApiCallStepFunctionsdescribeExecution": {
+            "id": "AwsApiCallStepFunctionsdescribeExecution",
+            "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution",
+            "children": {
+              "SdkProvider": {
+                "id": "SdkProvider",
+                "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/SdkProvider",
+                "children": {
+                  "AssertionsProvider": {
+                    "id": "AssertionsProvider",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/SdkProvider/AssertionsProvider",
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.131"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/integ-tests-alpha.AssertionsProvider",
+                  "version": "2.46.0-alpha.0"
+                }
+              },
+              "Default": {
+                "id": "Default",
+                "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/Default",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/Default/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.46.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CustomResource",
+                  "version": "2.46.0"
+                }
+              },
+              "WaitFor": {
+                "id": "WaitFor",
+                "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor",
+                "children": {
+                  "IsCompleteProvider": {
+                    "id": "IsCompleteProvider",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/IsCompleteProvider",
+                    "children": {
+                      "AssertionsProvider": {
+                        "id": "AssertionsProvider",
+                        "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/IsCompleteProvider/AssertionsProvider",
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.1.131"
+                        }
+                      },
+                      "Invoke": {
+                        "id": "Invoke",
+                        "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/IsCompleteProvider/Invoke",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.46.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/integ-tests-alpha.AssertionsProvider",
+                      "version": "2.46.0-alpha.0"
+                    }
+                  },
+                  "TimeoutProvider": {
+                    "id": "TimeoutProvider",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/TimeoutProvider",
+                    "children": {
+                      "AssertionsProvider": {
+                        "id": "AssertionsProvider",
+                        "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/TimeoutProvider/AssertionsProvider",
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.1.131"
+                        }
+                      },
+                      "Invoke": {
+                        "id": "Invoke",
+                        "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/TimeoutProvider/Invoke",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.46.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/integ-tests-alpha.AssertionsProvider",
+                      "version": "2.46.0-alpha.0"
+                    }
+                  },
+                  "Role": {
+                    "id": "Role",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/Role",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.46.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/WaitFor/Resource",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.46.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/integ-tests-alpha.WaiterStateMachine",
+                  "version": "2.46.0-alpha.0"
+                }
+              },
+              "AssertionResults": {
+                "id": "AssertionResults",
+                "path": "DeployAssert/AwsApiCallStepFunctionsdescribeExecution/AssertionResults",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.46.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/integ-tests-alpha.AwsApiCall",
+              "version": "2.46.0-alpha.0"
+            }
+          },
+          "SingletonFunction76b3e830a873425f8453eddd85c86925": {
+            "id": "SingletonFunction76b3e830a873425f8453eddd85c86925",
+            "path": "DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.46.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.46.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.46.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.131"
+            }
+          },
+          "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a": {
+            "id": "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a",
+            "path": "DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.46.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.46.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.46.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.131"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.46.0"
+        }
+      },
+      "Integ": {
+        "id": "Integ",
+        "path": "Integ",
+        "children": {
+          "DefaultTest": {
+            "id": "DefaultTest",
+            "path": "Integ/DefaultTest",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "Integ/DefaultTest/Default",
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.1.131"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/integ-tests-alpha.IntegTestCase",
+              "version": "2.46.0-alpha.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/integ-tests-alpha.IntegTest",
+          "version": "2.46.0-alpha.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.46.0"
+    }
+  }
+}

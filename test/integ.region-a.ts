@@ -1,4 +1,4 @@
-import { ExpectedResult, IntegTest, Match } from '@aws-cdk/integ-tests-alpha';
+import { ExpectedResult, IntegTest } from '@aws-cdk/integ-tests-alpha';
 import { App, ArnFormat, Stack, StackProps } from 'aws-cdk-lib';
 import { RequireApproval } from 'aws-cdk-lib/cloud-assembly-schema';
 import { Construct } from 'constructs';
@@ -16,8 +16,11 @@ class StackUnderTest extends Stack {
 
 const app = new App();
 const stack = new StackUnderTest(app, 'StackUnderTest');
+const assertionStack = new Stack(app, 'DeployAssert');
+assertionStack.addDependency(stack);
 
 const integ = new IntegTest(app, 'Integ', {
+  assertionStack,
   cdkCommandOptions: {
     deploy: {
       args: {
@@ -31,7 +34,7 @@ const integ = new IntegTest(app, 'Integ', {
     },
   },
   diffAssets: true,
-  stackUpdateWorkflow: false,
+  stackUpdateWorkflow: true,
   testCases: [stack],
 });
 
@@ -47,6 +50,5 @@ const start = integ.assertions.awsApiCall('StepFunctions', 'startExecution', {
 integ.assertions.awsApiCall('StepFunctions', 'describeExecution', {
   executionArn: start.getAttString('executionArn'),
 }).expect(ExpectedResult.objectLike({
-  output: Match.stringLikeRegexp('LGsDeleted'),
   status: 'SUCCEEDED',
 })).waitForAssertions();
