@@ -16,8 +16,11 @@ class StackUnderTest extends Stack {
 
 const app = new App();
 const stack = new StackUnderTest(app, 'StackUnderTest');
+const assertionStack = new Stack(app, 'DeployAssert');
+assertionStack.addDependency(stack);
 
 const integ = new IntegTest(app, 'Integ', {
+  assertionStack,
   cdkCommandOptions: {
     deploy: {
       args: {

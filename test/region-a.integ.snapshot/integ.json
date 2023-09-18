@@ -20,8 +20,8 @@
         }
       },
       "stackUpdateWorkflow": true,
-      "assertionStack": "Integ/DefaultTest/DeployAssert",
-      "assertionStackName": "IntegDefaultTestDeployAssert4E6713E1"
+      "assertionStack": "DeployAssert",
+      "assertionStackName": "DeployAssert"
     }
   }
 }
